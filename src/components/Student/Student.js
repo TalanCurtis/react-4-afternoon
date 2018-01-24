@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 
 export default class Student extends Component {
@@ -12,6 +13,7 @@ export default class Student extends Component {
   componentDidMount(){
     axios.get(`http://localhost:3005/students/${this.props.match.params.id}`)
     .then(res => {
+      console.log(res.data)
       this.setState({studentInfo:res.data})
     })
   }
@@ -23,6 +25,7 @@ export default class Student extends Component {
         <h1>{this.state.studentInfo.first_name+" "+this.state.studentInfo.last_name}</h1>
         <h3>Grade: {this.state.studentInfo.grade}</h3>
         <h3>Email: {this.state.studentInfo.email}</h3>
+        <Link to={`/classlist/${this.state.studentInfo.class}`}><button>Back to Class</button></Link>
       </div>
     )
   }
